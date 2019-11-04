@@ -1,8 +1,15 @@
 \ProvidesClass{TOREngReport}[2019/10/13 Class for engineering reports]
 \NeedsTeXFormat{LaTeX2e}
 %% Article options
-\DeclareOption{10pt}{\PassOptionsToClass{\CurrentOption}{article}}
-\DeclareOption{twocolumn}{\PassOptionsToClass{\CurrentOption}{article}}
+\DeclareOption{article}{
+	\DeclareOption{10pt}{\PassOptionsToClass{\CurrentOption}{article}}
+	\DeclareOption{twocolumn}{\PassOptionsToClass{\CurrentOption}{article}}
+}
+\DeclareOption{report}{
+	\DeclareOption{10pt}{\PassOptionsToClass{\CurrentOption}{report}}
+	\DeclareOption{twocolumn}{\PassOptionsToClass{\CurrentOption}{report}}
+}
+\DeclareOption{romanlist}{\renewcommand{\enumitemi}{\roman{\theenumi}}}
 %\DeclareOption{12pt}{\PassOptionsToClass{\CurrentOption}{article}}
 \DeclareOption{problem}{\def\isproblemsheet{1}}
 \DeclareOption*{
@@ -10,7 +17,7 @@
 }
 %\ExecuteOptions{10pt}
 \ProcessOptions*
-\LoadClass{article}
+\LoadClass[twocolumn]{article}
 %\renewcommand{\normalsize}{\fontsize{9}{10}\selectfont}
 \setlength{\textwidth}{280mm}
 \setlength{\textheight}{193mm}
@@ -21,7 +28,8 @@
 \RequirePackage{datetime2}
 %\RequirePackage{lastpage}
 %\RequirePackage[french]{babel}
-%\RequirePackage{graphicx, subcaption, setspace, booktabs, url}
+%\RequirePackage{setspace, booktabs, url}
+\RequirePackage{subcaption}
 \RequirePackage[pdftex]{graphicx}
 \RequirePackage{natbib}
 %\RequirePackage{wrapfig}
@@ -49,11 +57,11 @@
 \ifx\isproblemsheet\undefined
 
 \else
-	
-	\titleformat{\section}{\normalfont\Large\bfseries}{Problem \thesection}{0.5em}{}
-	\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection. }{0.5em}{}
-	\newcommand\problem{\section[Problem \thesection]{}}
-	\newcommand\subproblem{\subsection[\thesubsection]{}}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{Problem \thesection}{0.5em}{}
+\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection. }{0.5em}{}
+\newcommand\problem{\section[Problem \thesection]{}}
+\newcommand\subproblem{\subsection[\thesubsection]{}}
 \fi
 \RequirePackage[hidelinks,pdftex,backref,
 %pdfauthor=\@authors,
@@ -121,7 +129,6 @@ pdfcreator={pdflatex}]{hyperref}
 	\underset{\substack{\uparrow\\\mathrlap{\text{\hspace{-1em}#1}}}}{=}}
 
 \newcommand{\mLabel}[1]{\mbox{$\textstyle{#1}$}}
-
 %-------------------------------------------------------------------------------
 % HEADER & FOOTER
 %-------------------------------------------------------------------------------
@@ -129,14 +136,10 @@ pdfcreator={pdflatex}]{hyperref}
 \fancyhf{}
 \fancypagestyle{body}{
 	\setlength\headheight{15pt}
-	\fancyhead[L]{EEEN30110 Signals \& Systems 2019/2020 Autumn}
-	\fancyhead[R]{\thepage}
-	\fancyfoot[L]{16315466}
-	\fancyfoot[R]{UCD School of Electronic and Electrical Engineering}
-	\renewcommand{\footrulewidth}{0.4pt}
-	\renewcommand{\headrulewidth}{0.4pt}
+	\fancyhead[L]{EEEN40010 Control Theory}
+	\fancyhead[R]{UCD}
+	\fancyfoot[R]{\thepage}
 }
-\pagestyle{body}
 
 %
 % TITLE PAGE
@@ -145,20 +148,27 @@ pdfcreator={pdflatex}]{hyperref}
 	\pagenumbering{gobble}
 	\begin{titlepage}
 		\thispagestyle{plain}
+		\vspace*{\fill}
 		\centering
-		\vspace*\baselineskip
-		{\Huge #1}\\
-		{\footnotesize #2}\\
-		{\small #3}\\
-		\vspace*{\baselineskip}
+		\textbf{\Huge #1}\\
+		\bigskip
+		{\Large #2}\\
+		\smallskip
+		{\normalsize \textbf{#3}}\\
+		\smallskip
 		{\normalsize \DTMtoday}
+		\vspace*{\fill}
 	\end{titlepage}
 	\clearpage
 	\pagestyle{body}
 	\pagenumbering{roman}
 }
 
-
 \crefname{lstlisting}{listing}{listings}
 \Crefname{lstlisting}{Listing}{Listings}
-%\endinput
+%%
+% Custom sections
+\newcounter{question}[section]
+\newcommand\question{\refstepcounter{question}{\Large\bfseries Question \thequestion} 
+	\addcontentsline{toc}{section}{Question \thequestion}
+	\\\smallskip}
