@@ -37,7 +37,6 @@
 	\DeclareOption{10pt}{\PassOptionsToClass{\CurrentOption}{report}}
 	\DeclareOption{twocolumn}{\PassOptionsToClass{\CurrentOption}{report}}
 }
-\DeclareOption{romanlist}{\renewcommand{\enumitemi}{\roman{\theenumi}}}
 %\DeclareOption{12pt}{\PassOptionsToClass{\CurrentOption}{article}}
 \DeclareOption{problem}{\def\isproblemsheet{1}}
 \DeclareOption*{
@@ -64,7 +63,7 @@
 %\RequirePackage[T1]{fontenc}
 \RequirePackage[font=small, labelfont=bf]{caption}
 \RequirePackage{helvet}
-
+\RequirePackage{circuitikz}
 \RequirePackage{siunitx}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
@@ -115,9 +114,8 @@ pdfcreator={pdflatex}]{hyperref}
 \def\algorithmautorefname{Algorithm}
 \renewcommand{\ref}[1]{\cref{#1}}
 
-
 % Counter formatting
-\renewcommand\theenumi{\arabic{enumi}}
+\renewcommand\theenumi{\roman{enumi}}
 \renewcommand\theenumii{\alph{enumii}}
 \renewcommand\theenumiii{\roman{enumiii}}
 
