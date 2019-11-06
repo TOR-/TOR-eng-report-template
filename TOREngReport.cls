@@ -1,4 +1,32 @@
-\ProvidesClass{TOREngReport}[2019/10/13 Class for engineering reports]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Tiarnach Ó Riada's Engineering report class
+%% 
+%% Sample usage shown below
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass[article,twocolumn]{TOREngReport}
+%
+%\begin{document}
+%% Define report details
+%\TOREngReportDetails{Lab 4|Minor Project Part 1}{EEEN30110 Signals \& Systems}{UCD}{Tiarnach \'O Riada 16315466}
+%\maketitle
+%
+%\pagenumbering{roman}
+%\pagestyle{preface}
+%\tableofcontents
+%\cleardoublepage
+%
+%\pagenumbering{arabic}
+%\pagestyle{body}
+%% FOR EACH SECTION
+%\include{src/p1}
+
+
+%% APPENDICES
+%\begin{appendix}
+%\end{appendix}
+%\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesClass{TOREngReport}[2019/11/06 Class for engineering reports]
 \NeedsTeXFormat{LaTeX2e}
 %% Article options
 \DeclareOption{article}{
@@ -58,10 +86,8 @@
 
 \else
 
-\titleformat{\section}{\normalfont\Large\bfseries}{Problem \thesection}{0.5em}{}
-\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection. }{0.5em}{}
-\newcommand\problem{\section[Problem \thesection]{}}
-\newcommand\subproblem{\subsection[\thesubsection]{}}
+	\renewcommand\contentsname{\centering Problems}
+	
 \fi
 \RequirePackage[hidelinks,pdftex,backref,
 %pdfauthor=\@authors,
@@ -134,41 +160,86 @@ pdfcreator={pdflatex}]{hyperref}
 %-------------------------------------------------------------------------------
 \pagestyle{fancy}
 \fancyhf{}
+
 \fancypagestyle{body}{
 	\setlength\headheight{15pt}
-	\fancyhead[L]{EEEN40010 Control Theory}
-	\fancyhead[R]{UCD}
+	\fancyhead[L]{\thesubject}
+	\fancyhead[R]{\theinstitution}
+	\fancyfoot[L]{\theauthors}
 	\fancyfoot[R]{\thepage}
+
+	\renewcommand{\headrulewidth}{1pt}
+	\renewcommand{\footrulewidth}{1pt}
+}
+\fancypagestyle{preface}{
+	\setlength\headheight{15pt}
+	\fancyhead[L]{\thesubject}
+	\fancyhead[R]{\theinstitution}
+	\fancyfoot[L]{\theauthors}
+	\fancyfoot[R]{\thepage}
+
+	\renewcommand{\headrulewidth}{1pt}
+	\renewcommand{\footrulewidth}{1pt}
+}
+
+%% TABLE OF CONTENTS
+%\renewcommand{\cfttoctitlefont}{\hfill\Huge}
+
+%% --------------------------------
+\def\thetitle{ }
+\def\thesubject{ }
+\def\theinstitution{ }
+\def\theauthors{ }
+\newcommand{\TOREngReportDetails}[4]{
+	\def\thetitle{#1}
+	\def\thesubject{#2}
+	\def\theinstitution{#3}
+	\def\theauthors{#4}
 }
 
 %
 % TITLE PAGE
 %
-\renewcommand{\maketitle}[3]{
+\renewcommand{\maketitle}{
 	\pagenumbering{gobble}
 	\begin{titlepage}
 		\thispagestyle{plain}
 		\vspace*{\fill}
 		\centering
-		\textbf{\Huge #1}\\
+		{\thesubject}\\
 		\bigskip
-		{\Large #2}\\
+		\textbf{\Huge \thetitle}\\
 		\smallskip
-		{\normalsize \textbf{#3}}\\
+		{\normalsize \textbf{\theauthors}}\\
 		\smallskip
 		{\normalsize \DTMtoday}
 		\vspace*{\fill}
 	\end{titlepage}
 	\clearpage
-	\pagestyle{body}
-	\pagenumbering{roman}
 }
 
 \crefname{lstlisting}{listing}{listings}
 \Crefname{lstlisting}{Listing}{Listings}
 %%
 % Custom sections
+% QUESTION
 \newcounter{question}[section]
 \newcommand\question{\refstepcounter{question}{\Large\bfseries Question \thequestion} 
 	\addcontentsline{toc}{section}{Question \thequestion}
 	\\\smallskip}
+%PROBLEM
+\newcounter{problem}[section]
+\newcommand\problem{\refstepcounter{problem}{\normalfont\Large\bfseries Problem \theproblem} 
+	\addcontentsline{toc}{section}{Problem \theproblem}
+	\\\smallskip}
+%%%%%%%%%%%%
+%% FLOATS %%
+%%%%%%%%%%%%
+%\usepackage[nomarkers,figuresonly]{endfloat}
+%\renewcommand{\listoffigures}{}
+
+
+%%%%%%%%%%%%
+%% IMAGES %%
+%%%%%%%%%%%%
+\graphicspath{ {./img/} }
