@@ -57,26 +57,31 @@
 %\RequirePackage[french]{babel}
 %\RequirePackage{setspace, booktabs, url}
 \RequirePackage{subcaption}
+\RequirePackage{dblfloatfix}
 \RequirePackage[pdftex]{graphicx}
 \RequirePackage{natbib}
 %\RequirePackage{wrapfig}
 %\RequirePackage[T1]{fontenc}
 \RequirePackage[font=small, labelfont=bf]{caption}
 \RequirePackage{helvet}
-\RequirePackage{circuitikz}
+
 \RequirePackage{siunitx}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{mathtools}
 \RequirePackage{mathrsfs}
+\RequirePackage[table]{xcolor}
 \RequirePackage{tikz}
 \RequirePackage{tikz-3dplot}
+\RequirePackage{circuitikz}
+\RequirePackage{standalone}
 %\RequirePackage[protrusion=true, expansion=true]{microtype}
 %\RequirePackage{sectsty}
 %\RequirePackage{flafter}
 %\RequirePackage{algorithm}
 \RequirePackage{booktabs}
 %\RequirePackage{listings,xcolor, amssymb}
+
 %\RequirePackage{algorithmicx}
 \RequirePackage[toc,page]{appendix}
 \RequirePackage{titlesec}
@@ -142,8 +147,9 @@ pdfcreator={pdflatex}]{hyperref}
 
 % Transformy bois
 \def\fourier{\mathscr{F}}
+\def\laplace{\mathscr{L}}
 \newcommand\series[2]{\mathcal{S}_n\left(#1{\scriptstyle \left(#2\right)}\right)}
-\newcommand\transform[1]{\mathscr{#1}}
+\newcommand\transform[1]{\mathcal{#1}}
 
 % Exponential
 \renewcommand{\exp}[1]{e^{#1}}
@@ -153,6 +159,9 @@ pdfcreator={pdflatex}]{hyperref}
 	\underset{\substack{\uparrow\\\mathrlap{\text{\hspace{-1em}#1}}}}{=}}
 
 \newcommand{\mLabel}[1]{\mbox{$\textstyle{#1}$}}
+
+% Circled letters
+\newcommand{\lcirc}[1]{\large\textcircled{\footnotesize \textbf{$#1$}}}
 %-------------------------------------------------------------------------------
 % HEADER & FOOTER
 %-------------------------------------------------------------------------------
