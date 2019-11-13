@@ -231,13 +231,28 @@ pdfcreator={pdflatex}]{hyperref}
 % Custom sections
 % QUESTION
 \newcounter{question}[section]
-\newcommand\question{\refstepcounter{question}{\Large\bfseries Question \thequestion} 
-	\addcontentsline{toc}{section}{Question \thequestion}
+\newcommand\question{
+	
+	
+	\refstepcounter{question}{\normalfont\Large\bfseries Question \theproblem} 
+	\addcontentsline{toc}{section}{Question \theproblem}
+	\\\smallskip}
+\newcounter{subquestion}[question]
+\newcommand\subquestion{\refstepcounter{subquestion}{\normalfont\normalsize\bfseries \arabic{question}$\vert$\arabic{subquestion}}
+	\addcontentsline{toc}{subsection}{\thesubquestion}
 	\\\smallskip}
 %PROBLEM
 \newcounter{problem}[section]
-\newcommand\problem{\refstepcounter{problem}{\normalfont\Large\bfseries Problem \theproblem} 
+\newcommand\problem{
+
+
+	\bigskip
+	\refstepcounter{problem}{\normalfont\Large\bfseries Problem \theproblem} 
 	\addcontentsline{toc}{section}{Problem \theproblem}
+	\\\smallskip}
+\newcounter{subproblem}[problem]
+\newcommand\subproblem{\refstepcounter{subproblem}{\normalfont\normalsize\bfseries \arabic{problem}$\vert$\arabic{subproblem}}
+	\addcontentsline{toc}{subsection}{\thesubproblem}
 	\\\smallskip}
 %%%%%%%%%%%%
 %% FLOATS %%
