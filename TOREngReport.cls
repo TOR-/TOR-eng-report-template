@@ -81,7 +81,7 @@
 %\RequirePackage{algorithm}
 \RequirePackage{booktabs}
 %\RequirePackage{listings,xcolor, amssymb}
-
+\RequirePackage{listings}
 %\RequirePackage{algorithmicx}
 \RequirePackage[toc,page]{appendix}
 \RequirePackage{titlesec}
