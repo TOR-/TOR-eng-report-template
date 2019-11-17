@@ -42,6 +42,10 @@
 \DeclareOption*{
 	\ClassWarning{TOREngReport}{Unknown option '\CurrentOption'}
 }
+\def\ismatlab{0}
+\DeclareOption{matlab}{
+	\def\ismatlab{1}
+}
 %\ExecuteOptions{10pt}
 \ProcessOptions*
 \LoadClass[twocolumn]{article}
@@ -81,18 +85,36 @@
 %\RequirePackage{algorithm}
 \RequirePackage{booktabs}
 %\RequirePackage{listings,xcolor, amssymb}
+
+\RequirePackage{minted}
+\usemintedstyle{tango}
+\setminted[matlab]{
+	fontfamily=courier,
+	fontseries=bf,
+	frame=leftline,
+	framerule=1pt,
+	framesep=6pt,
+	rulecolor=black,
+	numbers=left,
+	numbersep=6pt,
+	numberblanklines=false,
+	samepage=true
+}
+
 \RequirePackage{listings}
+\lstset{basicstyle=\ttfamily,frame=l}
+
+\ifx\ismatlab\undefined
+
+\else
+\lstset{language=matlab}
+\def\matlab{{\textsc{Matlab}}}
+\fi
+
 %\RequirePackage{algorithmicx}
 \RequirePackage[toc,page]{appendix}
 \RequirePackage{titlesec}
 
-\ifx\isproblemsheet\undefined
-
-\else
-
-	\renewcommand\contentsname{\centering Problems}
-	
-\fi
 \RequirePackage[hidelinks,pdftex,backref,
 %pdfauthor=\@authors,
 %pdftitle=\@title,
@@ -231,29 +253,51 @@ pdfcreator={pdflatex}]{hyperref}
 % Custom sections
 % QUESTION
 \newcounter{question}[section]
+\crefname{question}{question}{questions}
+\Crefname{question}{Question}{Questions}
 \newcommand\question{
 	
 	
-	\refstepcounter{question}{\normalfont\Large\bfseries Question \theproblem} 
+	\refstepcounter{question}{\normalfont\Large\bfseries Question \theproblem}
+	\label{q:\thequestion}
 	\addcontentsline{toc}{section}{Question \theproblem}
 	\\\smallskip}
 \newcounter{subquestion}[question]
+\crefname{subquestion}{question}{questions}
+\Crefname{subquestion}{Question}{Questions}
 \newcommand\subquestion{\refstepcounter{subquestion}{\normalfont\normalsize\bfseries \arabic{question}$\vert$\arabic{subquestion}}
+	\label{q:\thequestion:\thesubquestion}
 	\addcontentsline{toc}{subsection}{\thesubquestion}
 	\\\smallskip}
+
 %PROBLEM
-\newcounter{problem}[section]
-\newcommand\problem{
+\ifx\isproblemsheet\undefined
 
+\else
+	\newcounter{problem}[section]
+	\crefname{problem}{problem}{problems}
+	\Crefname{problem}{Problem}{Problems}
+	\newcommand\problem{
+		
+		
+		\bigskip
+		\refstepcounter{problem}{\normalfont\Large\bfseries Problem \theproblem}
+		\label{p:\theproblem}
+		\setcounter{figure}{0}
+		\addcontentsline{toc}{section}{Problem \theproblem}
+		\\\smallskip}
+	\newcounter{subproblem}[problem]
+	\crefname{subproblem}{problem}{problems}
+	\Crefname{subproblem}{Problem}{Problems}
+	\newcommand\subproblem{\refstepcounter{subproblem}{\normalfont\normalsize\bfseries \arabic{problem}$\vert$\arabic{subproblem}}
+		\label{p:\theproblem:\thesubproblem}
+		\addcontentsline{toc}{subsection}{\thesubproblem}
+		\\\smallskip}
+	
+	\renewcommand\contentsname{Problems}
+	\renewcommand{\thefigure}{\arabic{problem}.\arabic{figure}}
+\fi
 
-	\bigskip
-	\refstepcounter{problem}{\normalfont\Large\bfseries Problem \theproblem} 
-	\addcontentsline{toc}{section}{Problem \theproblem}
-	\\\smallskip}
-\newcounter{subproblem}[problem]
-\newcommand\subproblem{\refstepcounter{subproblem}{\normalfont\normalsize\bfseries \arabic{problem}$\vert$\arabic{subproblem}}
-	\addcontentsline{toc}{subsection}{\thesubproblem}
-	\\\smallskip}
 %%%%%%%%%%%%
 %% FLOATS %%
 %%%%%%%%%%%%
