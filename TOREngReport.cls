@@ -39,6 +39,8 @@
 }
 %\DeclareOption{12pt}{\PassOptionsToClass{\CurrentOption}{article}}
 \DeclareOption{problem}{\def\isproblemsheet{1}}
+\DeclareOption{question}{\def\isquestionsheet{1}}
+
 \DeclareOption*{
 	\ClassWarning{TOREngReport}{Unknown option '\CurrentOption'}
 }
@@ -251,16 +253,22 @@ pdfcreator={pdflatex}]{hyperref}
 \Crefname{lstlisting}{Listing}{Listings}
 %%
 % Custom sections
+
 % QUESTION
+\ifx\isquestionsheet\undefined
+
+\else
+
 \newcounter{question}[section]
 \crefname{question}{question}{questions}
 \Crefname{question}{Question}{Questions}
-\newcommand\question{
+\newcommand{\question}{%
 	
 	
-	\refstepcounter{question}{\normalfont\Large\bfseries Question \theproblem}
+	\refstepcounter{question}{\normalfont\Large\bfseries Question \thequestion}
 	\label{q:\thequestion}
-	\addcontentsline{toc}{section}{Question \theproblem}
+	\setcounter{figure}{0}
+	\addcontentsline{toc}{section}{Question \thequestion}
 	\\\smallskip}
 \newcounter{subquestion}[question]
 \crefname{subquestion}{question}{questions}
@@ -270,10 +278,15 @@ pdfcreator={pdflatex}]{hyperref}
 	\addcontentsline{toc}{subsection}{\thesubquestion}
 	\\\smallskip}
 
+	\renewcommand\contentsname{Questions}
+	\renewcommand{\thefigure}{\arabic{question}.\arabic{figure}}
+\fi
+
 %PROBLEM
 \ifx\isproblemsheet\undefined
 
 \else
+
 	\newcounter{problem}[section]
 	\crefname{problem}{problem}{problems}
 	\Crefname{problem}{Problem}{Problems}
