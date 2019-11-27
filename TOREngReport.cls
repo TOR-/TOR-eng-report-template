@@ -40,14 +40,15 @@
 %\DeclareOption{12pt}{\PassOptionsToClass{\CurrentOption}{article}}
 \DeclareOption{problem}{\def\isproblemsheet{1}}
 \DeclareOption{question}{\def\isquestionsheet{1}}
-
-\DeclareOption*{
-	\ClassWarning{TOREngReport}{Unknown option '\CurrentOption'}
-}
 \def\ismatlab{0}
 \DeclareOption{matlab}{
 	\def\ismatlab{1}
 }
+\DeclareOption{endfloat}{\def\endfloat}
+\DeclareOption*{
+	\ClassWarning{TOREngReport}{Unknown option '\CurrentOption'}
+}
+
 %\ExecuteOptions{10pt}
 \ProcessOptions*
 \LoadClass[twocolumn]{article}
@@ -127,6 +128,7 @@ pdfcreator={pdflatex}]{hyperref}
 
 \RequirePackage{cleveref}
 %\graphicspath{ {./images/} }
+\RequirePackage{suffix}
 
 \DeclareCaptionType{captioneq}[][List of equations]
 \captionsetup[captioneq]{labelformat=simple}
@@ -262,6 +264,14 @@ pdfcreator={pdflatex}]{hyperref}
 \newcounter{question}[section]
 \crefname{question}{question}{questions}
 \Crefname{question}{Question}{Questions}
+\newcounter{subquestion}[question]
+\crefname{subquestion}{question}{questions}
+\Crefname{subquestion}{Question}{Questions}
+%\crefformat{subquestion}{question~#2#1#3}
+\newcounter{subsubquestion}[subquestion]
+\crefname{subsubquestion}{question}{questions}
+\Crefname{subsubquestion}{Question}{Questions}
+
 \newcommand{\question}{%
 	
 	
@@ -270,13 +280,23 @@ pdfcreator={pdflatex}]{hyperref}
 	\setcounter{figure}{0}
 	\addcontentsline{toc}{section}{Question \thequestion}
 	\\\smallskip}
-\newcounter{subquestion}[question]
-\crefname{subquestion}{question}{questions}
-\Crefname{subquestion}{Question}{Questions}
-\newcommand\subquestion{\refstepcounter{subquestion}{\normalfont\normalsize\bfseries \arabic{question}$\vert$\arabic{subquestion}}
-	\label{q:\thequestion:\thesubquestion}
-	\addcontentsline{toc}{subsection}{\thesubquestion}
+
+\newcommand\subquestion[1][]{%
+	\vspace{\baselineskip}
+	\def\subquestiontext{\thequestion$\vert$\thesubquestion\ifblank{#1}{}{ #1}}%
+	\refstepcounter{subquestion}%
+	{\normalfont\normalsize\bfseries \subquestiontext}%
+	\label{q:\thequestion:\thesubquestion}%
+	\addcontentsline{toc}{subsection}{\thequestion.\thesubquestion}%
 	\\\smallskip}
+
+\WithSuffix\newcommand\subquestion*[1]{
+	\def\subquestiontext{#1}%
+	{\normalfont\normalsize\bfseries \thequestion\hspace{2pt}\subquestiontext}%
+	\hypertarget{sq:\subquestiontext}{}%
+	\label{sq:\subquestiontext}
+	\addcontentsline{toc}{subsection}{\thequestion\hspace{2pt}\subquestiontext}%
+	\\}
 
 	\renewcommand\contentsname{Questions}
 	\renewcommand{\thefigure}{\arabic{question}.\arabic{figure}}
@@ -314,9 +334,12 @@ pdfcreator={pdflatex}]{hyperref}
 %%%%%%%%%%%%
 %% FLOATS %%
 %%%%%%%%%%%%
-%\usepackage[nomarkers,figuresonly]{endfloat}
-%\renewcommand{\listoffigures}{}
+\ifx\undefined\endfloat
 
+\else
+\usepackage[nomarkers,figuresonly]{endfloat}
+\renewcommand{\listoffigures}{}
+\fi
 
 %%%%%%%%%%%%
 %% IMAGES %%
