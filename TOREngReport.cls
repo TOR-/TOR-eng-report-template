@@ -40,6 +40,7 @@
 %\DeclareOption{12pt}{\PassOptionsToClass{\CurrentOption}{article}}
 \DeclareOption{problem}{\def\isproblemsheet{1}}
 \DeclareOption{question}{\def\isquestionsheet{1}}
+\DeclareOption{minted}{\def\@mint{1}}
 \def\ismatlab{0}
 \DeclareOption{matlab}{
 	\def\ismatlab{1}
@@ -59,7 +60,8 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[a4paper,margin=2cm]{geometry}
 \RequirePackage{fancyhdr}
-\RequirePackage{datetime2}
+\RequirePackage[en-IE]{datetime2}
+%\DTMsetdatestyle{ddmmyyyy}
 %\RequirePackage{lastpage}
 %\RequirePackage[french]{babel}
 %\RequirePackage{setspace, booktabs, url}
@@ -89,6 +91,9 @@
 \RequirePackage{booktabs}
 %\RequirePackage{listings,xcolor, amssymb}
 
+\ifx\undefined\@mint
+
+\else
 \RequirePackage{minted}
 \usemintedstyle{tango}
 \setminted[matlab]{
@@ -103,6 +108,7 @@
 	numberblanklines=false,
 	samepage=true
 }
+\fi
 
 \RequirePackage{listings}
 \lstset{basicstyle=\ttfamily,frame=l}
@@ -131,8 +137,11 @@ pdfcreator={pdflatex}]{hyperref}
 \RequirePackage{suffix}
 
 \DeclareCaptionType{captioneq}[][List of equations]
-\captionsetup[captioneq]{labelformat=simple}
 \renewcommand{\captioneqname}{Equation}
+\DeclareCaptionLabelFormat{captioneqfmt}{#1 \theequation}
+\captionsetup[captioneq]{labelformat=captioneqfmt}
+
+
 \newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
 %\onehalfspacing
 \setcounter{tocdepth}{5}
