@@ -94,20 +94,24 @@
 \ifx\undefined\@mint
 
 \else
-\RequirePackage{minted}
-\usemintedstyle{tango}
-\setminted[matlab]{
-	fontfamily=courier,
-	fontseries=bf,
-	frame=leftline,
-	framerule=1pt,
-	framesep=6pt,
-	rulecolor=black,
-	numbers=left,
-	numbersep=6pt,
-	numberblanklines=false,
-	samepage=true
-}
+	\RequirePackage{minted}
+	\usemintedstyle{tango}
+	\ifx\ismatlab\undefined
+	
+	\else
+		\setminted[matlab]{
+			fontfamily=courier,
+			fontseries=bf,
+			frame=leftline,
+			framerule=1pt,
+			framesep=6pt,
+			rulecolor=black,
+			numbers=left,
+			numbersep=6pt,
+			numberblanklines=false,
+			samepage=true
+		}
+	\fi
 \fi
 
 \RequirePackage{listings}
@@ -116,8 +120,8 @@
 \ifx\ismatlab\undefined
 
 \else
-\lstset{language=matlab}
-\def\matlab{{\textsc{Matlab}}}
+	\lstset{language=matlab}
+	\def\matlab{{\textsc{Matlab}}}
 \fi
 
 %\RequirePackage{algorithmicx}
