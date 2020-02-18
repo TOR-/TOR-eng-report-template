@@ -28,6 +28,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ProvidesClass{TOREngReport}[2019/11/06 Class for engineering reports]
 \NeedsTeXFormat{LaTeX2e}
+\def\baseclass{article}
 %% Article options
 \DeclareOption{article}{
 	\DeclareOption{10pt}{\PassOptionsToClass{\CurrentOption}{article}}
@@ -52,7 +53,7 @@
 
 %\ExecuteOptions{10pt}
 \ProcessOptions*
-\LoadClass[twocolumn]{article}
+\LoadClass{\baseclass}
 %\renewcommand{\normalsize}{\fontsize{9}{10}\selectfont}
 \setlength{\textwidth}{280mm}
 \setlength{\textheight}{193mm}
