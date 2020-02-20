@@ -100,6 +100,8 @@
 	\ifx\ismatlab\undefined
 	
 	\else
+		\RequirePackage{xcolor}
+		\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
 		\setminted[matlab]{
 			fontfamily=courier,
 			fontseries=bf,
@@ -108,9 +110,12 @@
 			framesep=6pt,
 			rulecolor=black,
 			numbers=left,
-			numbersep=6pt,
+			numbersep=3pt,
 			numberblanklines=false,
-			samepage=true
+			samepage=true,
+			bgcolor=lbcolor,
+			breaklines=true,
+			breaksymbol={\color{red}$\hookrightarrow$}
 		}
 	\fi
 \fi
@@ -122,7 +127,7 @@
 
 \else
 	\lstset{language=matlab}
-	\def\matlab{{\textsc{Matlab}}}
+	\def\matlab{{\textsc{Matlab} }}
 \fi
 
 %\RequirePackage{algorithmicx}
