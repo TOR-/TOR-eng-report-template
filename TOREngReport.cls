@@ -101,8 +101,10 @@
 	
 	\else
 		\RequirePackage{xcolor}
-		\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+		\RequirePackage{calc}
+		\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
 		\setminted[matlab]{
+			escapeinside=||,
 			fontfamily=courier,
 			fontseries=bf,
 			frame=leftline,
@@ -111,7 +113,7 @@
 			rulecolor=black,
 			numbers=left,
 			numbersep=3pt,
-			numberblanklines=false,
+			numberblanklines=true,
 			samepage=true,
 			bgcolor=lbcolor,
 			breaklines=true,
