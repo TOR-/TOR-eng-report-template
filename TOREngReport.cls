@@ -102,8 +102,31 @@
 	\else
 		\RequirePackage{xcolor}
 		\RequirePackage{calc}
+		\RequirePackage{matlab-prettifier}
+		\lstdefinestyle{matlab}{
+			style=Matlab-editor,
+			title=\lstname,
+			escapeinside={|}{|},
+%			autogobble,
+			basicstyle=\footnotesize\ttfamily,
+%			fontfamily=courier,
+%			fontseries=bf,
+			frame={left bottom right},
+			framerule=1pt,
+			framesep=2pt,
+			numbers=left,
+			numbersep=4pt,
+			numberstyle=\tiny\bfseries\color{black},
+			numberblanklines=true,
+			rulecolor=\color{black},
+%			samepage=true,
+%			bgcolor=lbcolor,
+			breaklines=true
+%			breaksymbol={\color{red}$\hookrightarrow$}
+		}
 		\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
 		\setminted[matlab]{
+			autogobble,
 			escapeinside=||,
 			fontfamily=courier,
 			fontseries=bf,
