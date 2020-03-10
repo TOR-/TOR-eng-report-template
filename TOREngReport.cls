@@ -75,6 +75,8 @@
 \RequirePackage[font=small, labelfont=bf]{caption}
 \RequirePackage{helvet}
 
+\RequirePackage{cuted} % provides strip environment for 1 col in 2 col doc
+
 \RequirePackage{siunitx}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
