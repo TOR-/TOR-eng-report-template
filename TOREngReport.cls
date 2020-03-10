@@ -37,12 +37,12 @@
 \DeclareOption{report}{
 	\DeclareOption{10pt}{\PassOptionsToClass{\CurrentOption}{report}}
 	\DeclareOption{twocolumn}{\PassOptionsToClass{\CurrentOption}{report}}
+	\def\baseclass{report}
 }
 %\DeclareOption{12pt}{\PassOptionsToClass{\CurrentOption}{article}}
 \DeclareOption{problem}{\def\isproblemsheet{1}}
 \DeclareOption{question}{\def\isquestionsheet{1}}
 \DeclareOption{minted}{\def\@mint{1}}
-\def\ismatlab{0}
 \DeclareOption{matlab}{
 	\def\ismatlab{1}
 }
@@ -69,7 +69,7 @@
 \RequirePackage{subcaption}
 \RequirePackage{dblfloatfix}
 \RequirePackage[pdftex]{graphicx}
-\RequirePackage{natbib}
+\RequirePackage[numbers]{natbib}
 %\RequirePackage{wrapfig}
 %\RequirePackage[T1]{fontenc}
 \RequirePackage[font=small, labelfont=bf]{caption}
@@ -96,12 +96,31 @@
 
 \else
 	\RequirePackage{minted}
+	\RequirePackage{xcolor}
+	\RequirePackage{calc}
 	\usemintedstyle{tango}
+	\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
+	\setminted{
+		escapeinside=||,
+		fontfamily=courier,
+		fontseries=bf,
+		frame=leftline,
+		framerule=1pt,
+		framesep=6pt,
+		rulecolor=black,
+		numbers=left,
+		numbersep=3pt,
+		numberblanklines=true,
+		samepage=true,
+		%bgcolor=lbcolor,
+		breaklines=true,
+		breaksymbol={\color{red}$\hookrightarrow$},
+		tabsize=2,
+		%xleftmargin=-5cm
+	}
 	\ifx\ismatlab\undefined
-	
+
 	\else
-		\RequirePackage{xcolor}
-		\RequirePackage{calc}
 		\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
 		\setminted[matlab]{
 			escapeinside=||,
@@ -251,6 +270,10 @@ pdfcreator={pdflatex}]{hyperref}
 	\def\theauthors{#4}
 }
 
+\newcommand{\AbstractBox}[1]{
+	\def\theabstract{#1}
+}
+
 %
 % TITLE PAGE
 %
@@ -274,7 +297,14 @@ pdfcreator={pdflatex}]{hyperref}
 		\parbox{0.7\textwidth}{\raggedright\textbf{\thetitle}}
 		\endgroup
 		
-		\vspace{\fill}
+		\ifx\theabstract\undefined
+			\vspace{\fill}
+		\else
+			\vspace{\fill}%
+			\hspace{0.1\textwidth}\parbox{0.8\textwidth}{\theabstract}%
+			\vspace{\fill}%
+		\fi
+
 		\parbox{\linewidth}{{\large 
 				{\Large\textbf{\thesubject}}
 				
