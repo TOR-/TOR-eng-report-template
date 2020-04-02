@@ -42,6 +42,7 @@
 \DeclareOption{problem}{\def\isproblemsheet{1}}
 \DeclareOption{question}{\def\isquestionsheet{1}}
 \DeclareOption{minted}{\def\@mint{1}}
+\DeclareOption{breqn}{\def\@breqninc{1}}
 \def\ismatlab{0}
 \DeclareOption{matlab}{
 	\def\ismatlab{1}
@@ -91,7 +92,11 @@
 %\RequirePackage{algorithm}
 \RequirePackage{booktabs}
 %\RequirePackage{listings,xcolor, amssymb}
+\ifx\undefined\@breqninc
 
+\else
+\RequirePackage{breqn}
+\fi
 \ifx\undefined\@mint
 
 \else
@@ -103,6 +108,7 @@
 		\RequirePackage{xcolor}
 		\RequirePackage{calc}
 		\RequirePackage{matlab-prettifier}
+		\definecolor{com-green}{rgb}{034,139,034}
 		\lstdefinestyle{matlab}{
 			style=Matlab-editor,
 			title=\lstname,
@@ -111,7 +117,7 @@
 			basicstyle=\footnotesize\ttfamily,
 %			fontfamily=courier,
 %			fontseries=bf,
-			frame={left bottom right},
+			frame={left bottom},
 			framerule=1pt,
 			framesep=2pt,
 			numbers=left,
@@ -128,17 +134,18 @@
 		\setminted[matlab]{
 			autogobble,
 			escapeinside=||,
-			fontfamily=courier,
+			fontfamily=\ttfamily,
 			fontseries=bf,
 			frame=leftline,
 			framerule=1pt,
-			framesep=6pt,
+			framesep=2pt,
 			rulecolor=black,
 			numbers=left,
-			numbersep=3pt,
+%			numberstyle=\tiny\bfseries\color{black},
+			numbersep=4pt,
 			numberblanklines=true,
 			samepage=true,
-			bgcolor=lbcolor,
+%			bgcolor=lbcolor,
 			breaklines=true,
 			breaksymbol={\color{red}$\hookrightarrow$}
 		}
