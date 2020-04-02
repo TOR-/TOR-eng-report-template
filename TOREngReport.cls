@@ -37,13 +37,13 @@
 \DeclareOption{report}{
 	\DeclareOption{10pt}{\PassOptionsToClass{\CurrentOption}{report}}
 	\DeclareOption{twocolumn}{\PassOptionsToClass{\CurrentOption}{report}}
+	\def\baseclass{report}
 }
 %\DeclareOption{12pt}{\PassOptionsToClass{\CurrentOption}{article}}
 \DeclareOption{problem}{\def\isproblemsheet{1}}
 \DeclareOption{question}{\def\isquestionsheet{1}}
 \DeclareOption{minted}{\def\@mint{1}}
 \DeclareOption{breqn}{\def\@breqninc{1}}
-\def\ismatlab{0}
 \DeclareOption{matlab}{
 	\def\ismatlab{1}
 }
@@ -70,11 +70,13 @@
 \RequirePackage{subcaption}
 \RequirePackage{dblfloatfix}
 \RequirePackage[pdftex]{graphicx}
-\RequirePackage{natbib}
+\RequirePackage[numbers]{natbib}
 %\RequirePackage{wrapfig}
 %\RequirePackage[T1]{fontenc}
 \RequirePackage[font=small, labelfont=bf]{caption}
 \RequirePackage{helvet}
+
+\RequirePackage{cuted} % provides strip environment for 1 col in 2 col doc
 
 \RequirePackage{siunitx}
 \RequirePackage{amsmath}
@@ -101,9 +103,30 @@
 
 \else
 	\RequirePackage{minted}
+	\RequirePackage{xcolor}
+	\RequirePackage{calc}
 	\usemintedstyle{tango}
+	\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
+	\setminted{
+		escapeinside=||,
+		fontfamily=courier,
+		fontseries=bf,
+		frame=leftline,
+		framerule=1pt,
+		framesep=6pt,
+		rulecolor=black,
+		numbers=left,
+		numbersep=3pt,
+		numberblanklines=true,
+		samepage=true,
+		%bgcolor=lbcolor,
+		breaklines=true,
+		breaksymbol={\color{red}$\hookrightarrow$},
+		tabsize=2,
+		%xleftmargin=-5cm
+	}
 	\ifx\ismatlab\undefined
-	
+
 	\else
 		\RequirePackage{xcolor}
 		\RequirePackage{calc}
@@ -281,23 +304,50 @@ pdfcreator={pdflatex}]{hyperref}
 	\def\theauthors{#4}
 }
 
+\newcommand{\AbstractBox}[1]{
+	\def\theabstract{#1}
+}
+
 %
 % TITLE PAGE
 %
+\RequirePackage{anyfontsize}
+\RequirePackage{setspace}
+
 \renewcommand{\maketitle}{
 	\pagenumbering{gobble}
 	\begin{titlepage}
-		\thispagestyle{plain}
-		\vspace*{\fill}
-		\centering
-		{\thesubject}\\
-		\bigskip
-		\textbf{\Huge \thetitle}\\
-		\smallskip
-		{\normalsize \textbf{\theauthors}}\\
-		\smallskip
-		{\normalsize \DTMtoday}
-		\vspace*{\fill}
+		\thispagestyle{empty}
+		\begin{minipage}{\linewidth}
+			\parbox{0.2\linewidth}{\includegraphics[width=0.5\linewidth]{ucd-crest.png}\hfill}%
+			\parbox{0.2\linewidth}{\theinstitution\hfill{\fontsize{38}{10}$/$}}%
+			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright School of Engineering and Architecture}\hfill{\fontsize{40}{10} $/$}}%
+			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright Electrical and Electronic Engineering}\hfill{\fontsize{40}{10} $/$}}%
+		\end{minipage}
+		
+		\vspace{3cm}
+		\begingroup
+		\setstretch{4}\fontsize{38}{10}\selectfont\fontdimen2\font=0.8ex
+		\parbox{0.7\textwidth}{\raggedright\textbf{\thetitle}}
+		\endgroup
+		
+		\ifx\theabstract\undefined
+			\vspace{\fill}
+		\else
+			\vspace{\fill}%
+			\hspace{0.1\textwidth}\parbox{0.8\textwidth}{\theabstract}%
+			\vspace{\fill}%
+		\fi
+
+		\parbox{\linewidth}{{\large 
+				{\Large\textbf{\thesubject}}
+				
+				\bigskip
+				\textbf{Authors} : \theauthors
+				
+				\smallskip
+				\textbf{Date submitted} : \DTMtoday
+		}}
 	\end{titlepage}
 	\clearpage
 }
@@ -391,6 +441,44 @@ pdfcreator={pdflatex}]{hyperref}
 \usepackage[nomarkers,figuresonly]{endfloat}
 \renewcommand{\listoffigures}{}
 \fi
+
+% FFIGURES  Insert figures for filenames given
+%	#1 List of filenames, captions and labels in the format fn/cap/lab
+\newcommand{\ffigures}[1]{%
+	\foreach \fn / \capn / \lab in {#1}{%
+		\begin{figure*}
+			\centering
+			\includegraphics[width=\linewidth]{\fn}
+			\caption{\capn}
+			\label{\lab}
+		\end{figure*}
+		
+}}
+
+%% SUBFIGMAT  Insert matrix of figures
+%	#1 2D array of subfigures in the format 
+%			{lenf/{f1/c1/l1 , f2/c2/l2,...},leng/{g1/cg1/lg1,...},...}
+\newcommand{\subfigmat}[2]{%
+	\begin{figure*}
+		\centering
+		\foreach \len / \line in {#1}{%
+			\FPeval{\subfigwidthfrac}{round(1/\len,6)}%
+			\foreach \fig / \capn / \lab in \line{%
+				\begin{subfigure}{\subfigwidthfrac\linewidth}
+					\centering
+					\includegraphics[width=\linewidth]{\fig}
+					\caption{\capn}
+					\label{fig:\lab}
+				\end{subfigure}\hfill%
+			}%
+			\newline%
+		}%
+		\foreach \capn / \lab in {#2}{%
+			\caption{\capn}%
+			\label{fig:\lab}%
+		}
+	\end{figure*}
+}
 
 %%%%%%%%%%%%
 %% IMAGES %%
