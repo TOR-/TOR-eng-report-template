@@ -322,7 +322,7 @@ pdfcreator={pdflatex}]{hyperref}
 			\parbox{0.2\linewidth}{\includegraphics[width=0.5\linewidth]{ucd-crest.png}\hfill}%
 			\parbox{0.2\linewidth}{\theinstitution\hfill{\fontsize{38}{10}$/$}}%
 			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright School of Engineering and Architecture}\hfill{\fontsize{40}{10} $/$}}%
-			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright Electrical and Electronic Engineering}\hfill{\fontsize{40}{10} $/$}}%
+			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright Electronic Engineering}\hfill{\fontsize{40}{10} $/$}}%
 		\end{minipage}
 		
 		\vspace{3cm}
@@ -345,6 +345,44 @@ pdfcreator={pdflatex}]{hyperref}
 				\bigskip
 				\textbf{Authors} : \theauthors
 				
+				\smallskip
+				\textbf{Date submitted} : \DTMtoday
+		}}
+	\end{titlepage}
+	\clearpage
+}
+
+\newcommand{\makedeclarationbox}[2]{
+	\pagenumbering{gobble}
+	\begin{titlepage}
+		\thispagestyle{empty}
+		\begin{minipage}{\linewidth}
+			\parbox{0.2\linewidth}{\includegraphics[width=0.5\linewidth]{ucd-crest.png}\hfill}%
+			\parbox{0.2\linewidth}{\theinstitution\hfill{\fontsize{38}{10}$/$}}%
+			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright School of Engineering and Architecture}\hfill{\fontsize{40}{10} $/$}}%
+			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright Electronic Engineering}\hfill{\fontsize{40}{10} $/$}}%
+		\end{minipage}
+		
+		\vspace{3cm}
+		\begingroup
+		\setstretch{4}\fontsize{28}{10}\selectfont\fontdimen2\font=0.8ex
+		\parbox{\textwidth}{\raggedright\textbf{\thetitle}}
+		\endgroup
+		
+		\vspace{2cm}%
+		\hspace{0.1\textwidth}\fbox{\parbox{0.8\textwidth}{
+				\textbf{Name:} \theauthors
+				
+				\smallskip
+				\raggedright #1
+				
+				\textbf{Signed By:} Tiarnach Ó Riada\hfill\textbf{Lab Date:} #2
+			}}%
+		\vspace{\fill}%
+
+		\parbox{\linewidth}{{\large 
+				{\Large\textbf{\thesubject}}
+
 				\smallskip
 				\textbf{Date submitted} : \DTMtoday
 		}}
