@@ -328,7 +328,7 @@ pdfcreator={pdflatex}]{hyperref}
 		\vspace{3cm}
 		\begingroup
 		\setstretch{4}\fontsize{38}{10}\selectfont\fontdimen2\font=0.8ex
-		\parbox{0.7\textwidth}{\raggedright\textbf{\thetitle}}
+		\parbox{0.9\textwidth}{\raggedright\textbf{\thetitle}}
 		\endgroup
 		
 		\ifx\theabstract\undefined
@@ -461,10 +461,11 @@ pdfcreator={pdflatex}]{hyperref}
 	\newcounter{subproblem}[problem]
 	\crefname{subproblem}{problem}{problems}
 	\Crefname{subproblem}{Problem}{Problems}
-	\newcommand\subproblem{\refstepcounter{subproblem}{\normalfont\normalsize\bfseries \arabic{problem}$\vert$\arabic{subproblem}}
+	\newcommand\subproblem[1]{\refstepcounter{subproblem}{\normalfont\normalsize\bfseries \arabic{problem}$\vert$\arabic{subproblem}\ifblank{#1}{}{ #1}}
 		\label{p:\theproblem:\thesubproblem}
-		\addcontentsline{toc}{subsection}{\thesubproblem}
-		\\\smallskip}
+		\addcontentsline{toc}{subsection}{\thesubproblem\ifblank{#1}{}{ #1}}
+		
+		}
 	
 	\renewcommand\contentsname{Problems}
 	\renewcommand{\thefigure}{\arabic{problem}.\arabic{figure}}
