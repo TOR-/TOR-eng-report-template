@@ -321,7 +321,7 @@ pdfcreator={pdflatex}]{hyperref}
 		\begin{minipage}{\linewidth}
 			\parbox{0.2\linewidth}{\includegraphics[width=0.5\linewidth]{ucd-crest.png}\hfill}%
 			\parbox{0.2\linewidth}{\theinstitution\hfill{\fontsize{38}{10}$/$}}%
-			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright School of Engineering and Architecture}\hfill{\fontsize{40}{10} $/$}}%
+			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright College of Engineering and Architecture}\hfill{\fontsize{40}{10} $/$}}%
 			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright Electronic Engineering}\hfill{\fontsize{40}{10} $/$}}%
 		\end{minipage}
 		
@@ -359,7 +359,7 @@ pdfcreator={pdflatex}]{hyperref}
 		\begin{minipage}{\linewidth}
 			\parbox{0.2\linewidth}{\includegraphics[width=0.5\linewidth]{ucd-crest.png}\hfill}%
 			\parbox{0.2\linewidth}{\theinstitution\hfill{\fontsize{38}{10}$/$}}%
-			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright School of Engineering and Architecture}\hfill{\fontsize{40}{10} $/$}}%
+			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright College of Engineering and Architecture}\hfill{\fontsize{40}{10} $/$}}%
 			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright Electronic Engineering}\hfill{\fontsize{40}{10} $/$}}%
 		\end{minipage}
 		
