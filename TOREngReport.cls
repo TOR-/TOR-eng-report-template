@@ -31,15 +31,15 @@
 \def\baseclass{article}
 %% Article options
 \DeclareOption{article}{
-	\DeclareOption{10pt}{\PassOptionsToClass{\CurrentOption}{article}}
-	\DeclareOption{twocolumn}{\PassOptionsToClass{\CurrentOption}{article}}
 }
 \DeclareOption{report}{
-	\DeclareOption{10pt}{\PassOptionsToClass{\CurrentOption}{report}}
-	\DeclareOption{twocolumn}{\PassOptionsToClass{\CurrentOption}{report}}
 	\def\baseclass{report}
 }
-%\DeclareOption{12pt}{\PassOptionsToClass{\CurrentOption}{article}}
+\DeclareOption{10pt}{\PassOptionsToClass{\CurrentOption}{\baseclass}}
+\DeclareOption{11pt}{\PassOptionsToClass{\CurrentOption}{\baseclass}}
+\DeclareOption{12pt}{\PassOptionsToClass{\CurrentOption}{\baseclass}}
+\DeclareOption{a4paper}{\PassOptionsToClass{\CurrentOption}{\baseclass}}
+\DeclareOption{twocolumn}{\PassOptionsToClass{\CurrentOption}{\baseclass}}
 \DeclareOption{problem}{\def\isproblemsheet{1}}
 \DeclareOption{question}{\def\isquestionsheet{1}}
 \DeclareOption{minted}{\def\@mint{1}}
@@ -70,9 +70,11 @@
 \RequirePackage{subcaption}
 \RequirePackage{dblfloatfix}
 \RequirePackage[pdftex]{graphicx}
-\RequirePackage[numbers]{natbib}
+\RequirePackage{enumitem}
+%\RequirePackage{natbib}
+%\bibliographystyle{humannat}
 %\RequirePackage{wrapfig}
-%\RequirePackage[T1]{fontenc}
+\RequirePackage[T1]{fontenc}
 \RequirePackage[font=small, labelfont=bf]{caption}
 \RequirePackage{helvet}
 
@@ -85,9 +87,15 @@
 \RequirePackage{mathrsfs}
 \RequirePackage[table]{xcolor}
 \RequirePackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes}
 \RequirePackage{tikz-3dplot}
 \RequirePackage{circuitikz}
 \RequirePackage{standalone}
+
+\RequirePackage{svg}
+
 %\RequirePackage[protrusion=true, expansion=true]{microtype}
 %\RequirePackage{sectsty}
 %\RequirePackage{flafter}
@@ -188,8 +196,8 @@
 %\RequirePackage{algorithmicx}
 \RequirePackage[toc,page]{appendix}
 \RequirePackage{titlesec}
-
-\RequirePackage[hidelinks,pdftex,backref,
+\RequirePackage[backref,hyperref,backend=biber,style=alphabetic,sorting=ynt]{biblatex}
+\RequirePackage[hidelinks,pdftex,%backref=true,
 %pdfauthor=\@authors,
 %pdftitle=\@title,
 %pdfsubject=\@subject,
