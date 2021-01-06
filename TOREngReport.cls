@@ -77,6 +77,7 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage[font=small, labelfont=bf]{caption}
 \RequirePackage{helvet}
+\usepackage[acronym]{glossaries}
 
 \RequirePackage{cuted} % provides strip environment for 1 col in 2 col doc
 
@@ -196,7 +197,7 @@
 %\RequirePackage{algorithmicx}
 \RequirePackage[toc,page]{appendix}
 \RequirePackage{titlesec}
-\RequirePackage[backref,hyperref,backend=biber,style=alphabetic,sorting=ynt]{biblatex}
+\RequirePackage[backref,hyperref,backend=biber,style=authoryear-icomp,sorting=ynt]{biblatex}
 \RequirePackage[hidelinks,pdftex,%backref=true,
 %pdfauthor=\@authors,
 %pdftitle=\@title,
