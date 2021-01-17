@@ -59,7 +59,7 @@
 \setlength{\textwidth}{280mm}
 \setlength{\textheight}{193mm}
 
-\RequirePackage[utf8]{inputenc}
+\RequirePackage[utf8]{luainputenc}
 \RequirePackage[a4paper,margin=2cm]{geometry}
 \RequirePackage{fancyhdr}
 \RequirePackage[en-IE]{datetime2}
@@ -69,7 +69,8 @@
 %\RequirePackage{setspace, booktabs, url}
 \RequirePackage{subcaption}
 \RequirePackage{dblfloatfix}
-\RequirePackage[pdftex]{graphicx}
+%\RequirePackage[pdftex]{graphicx}
+\RequirePackage{graphicx}
 \RequirePackage{enumitem}
 %\RequirePackage{natbib}
 %\bibliographystyle{humannat}
@@ -198,7 +199,9 @@
 \RequirePackage[toc,page]{appendix}
 \RequirePackage{titlesec}
 \RequirePackage[backref,hyperref,backend=biber,style=authoryear-icomp,sorting=ynt]{biblatex}
-\RequirePackage[hidelinks,pdftex,%backref=true,
+\RequirePackage[hidelinks,
+luatex,
+%pdftex,%backref=true,
 %pdfauthor=\@authors,
 %pdftitle=\@title,
 %pdfsubject=\@subject,
