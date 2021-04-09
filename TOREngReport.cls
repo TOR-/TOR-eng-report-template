@@ -328,6 +328,12 @@ pdfcreator={pdflatex}]{hyperref}
 	\def\@thesubtitle{#5}
 }
 
+\def\@titlefontsize{38}
+\def\@subtitlefontsize{16}
+\newcommand{\titlefontsizes}[2]{
+	\def\@titlefontsize{#1}
+	\def\@subtitlefontsize{#2}
+}
 \newcommand{\AbstractBox}[1]{
 	\def\@theabstract{#1}
 }
@@ -351,8 +357,12 @@ pdfcreator={pdflatex}]{hyperref}
 		
 		\vspace{3cm}
 		\begingroup
-		\setstretch{4}\fontsize{38}{10}\selectfont\fontdimen2\font=0.8ex
-		\parbox{0.9\textwidth}{\raggedright\textbf{\@thetitle}}
+		\parbox{\textwidth}{%
+			\centering%
+				%\raggedright
+				\bfseries\setstretch{4}\fontsize{\@titlefontsize}{10}\selectfont\fontdimen2\font=0.8ex\@thetitle\\%
+			\fontsize{\@subtitlefontsize}{10}\selectfont\itshape\@thesubtitle%
+		}\\%
 		\endgroup
 		
 		\ifx\@theabstract\undefined
