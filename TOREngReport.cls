@@ -47,6 +47,8 @@
 \DeclareOption{matlab}{
 	\def\ismatlab{1}
 }
+\DeclareOption{titleheader}{\def\@titleheader{1}}
+\DeclareOption{subtitleheader}{\def\@subtitleheader{1}}
 \DeclareOption{endfloat}{\def\endfloat}
 \DeclareOption*{
 	\ClassWarning{TOREngReport}{Unknown option '\CurrentOption'}
@@ -198,7 +200,7 @@
 %\RequirePackage{algorithmicx}
 \RequirePackage[toc,page]{appendix}
 \RequirePackage{titlesec}
-\RequirePackage[backref,hyperref,backend=biber,style=authoryear-icomp,sorting=ynt]{biblatex}
+\RequirePackage[backref,hyperref,backend=biber,style=numeric,sorting=ynt]{biblatex}
 \RequirePackage[hidelinks,
 luatex,
 %pdftex,%backref=true,
@@ -282,9 +284,17 @@ pdfcreator={pdflatex}]{hyperref}
 
 \fancypagestyle{body}{
 	\setlength\headheight{15pt}
-	\fancyhead[L]{\thesubject}
-	\fancyhead[R]{\theinstitution}
-	\fancyfoot[L]{\theauthors}
+	\ifx\@titleheader\undefined
+		\ifx\@subtitleheader\undefined
+			\fancyhead[L]{\@thesubject}
+		\else
+			\fancyhead[L]{\@thesubtitle}
+		\fi
+	\else
+		\fancyhead[L]{\@thetitle}
+	\fi
+	\fancyhead[R]{\@theinstitution}
+	\fancyfoot[L]{\@theauthors}
 	\fancyfoot[R]{\thepage}
 
 	\renewcommand{\headrulewidth}{1pt}
@@ -292,9 +302,9 @@ pdfcreator={pdflatex}]{hyperref}
 }
 \fancypagestyle{preface}{
 	\setlength\headheight{15pt}
-	\fancyhead[L]{\thesubject}
-	\fancyhead[R]{\theinstitution}
-	\fancyfoot[L]{\theauthors}
+	\fancyhead[L]{\@thesubject}
+	\fancyhead[R]{\@theinstitution}
+	\fancyfoot[L]{\@theauthors}
 	\fancyfoot[R]{\thepage}
 
 	\renewcommand{\headrulewidth}{1pt}
@@ -305,19 +315,21 @@ pdfcreator={pdflatex}]{hyperref}
 %\renewcommand{\cfttoctitlefont}{\hfill\Huge}
 
 %% --------------------------------
-\def\thetitle{ }
-\def\thesubject{ }
-\def\theinstitution{ }
-\def\theauthors{ }
-\newcommand{\TOREngReportDetails}[4]{
-	\def\thetitle{#1}
-	\def\thesubject{#2}
-	\def\theinstitution{#3}
-	\def\theauthors{#4}
+\def\@thetitle{ }
+\def\@thesubject{ }
+\def\@theinstitution{ }
+\def\@theauthors{ }
+\def\@thesubtitle{ }
+\newcommand{\TOREngReportDetails}[5]{
+	\def\@thetitle{#1}
+	\def\@thesubject{#2}
+	\def\@theinstitution{#3}
+	\def\@theauthors{#4}
+	\def\@thesubtitle{#5}
 }
 
 \newcommand{\AbstractBox}[1]{
-	\def\theabstract{#1}
+	\def\@theabstract{#1}
 }
 
 %
@@ -332,7 +344,7 @@ pdfcreator={pdflatex}]{hyperref}
 		\thispagestyle{empty}
 		\begin{minipage}{\linewidth}
 			\parbox{0.2\linewidth}{\includegraphics[width=0.5\linewidth]{ucd-crest.png}\hfill}%
-			\parbox{0.2\linewidth}{\theinstitution\hfill{\fontsize{38}{10}$/$}}%
+			\parbox{0.2\linewidth}{\@theinstitution\hfill{\fontsize{38}{10}$/$}}%
 			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright College of Engineering and Architecture}\hfill{\fontsize{40}{10} $/$}}%
 			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright Electronic Engineering}\hfill{\fontsize{40}{10} $/$}}%
 		\end{minipage}
@@ -340,22 +352,22 @@ pdfcreator={pdflatex}]{hyperref}
 		\vspace{3cm}
 		\begingroup
 		\setstretch{4}\fontsize{38}{10}\selectfont\fontdimen2\font=0.8ex
-		\parbox{0.9\textwidth}{\raggedright\textbf{\thetitle}}
+		\parbox{0.9\textwidth}{\raggedright\textbf{\@thetitle}}
 		\endgroup
 		
-		\ifx\theabstract\undefined
+		\ifx\@theabstract\undefined
 			\vspace{\fill}
 		\else
 			\vspace{\fill}%
-			\hspace{0.1\textwidth}\parbox{0.8\textwidth}{\theabstract}%
+			\hspace{0.1\textwidth}\parbox{0.8\textwidth}{\@theabstract}%
 			\vspace{\fill}%
 		\fi
 
 		\parbox{\linewidth}{{\large 
-				{\Large\textbf{\thesubject}}
+				{\Large\textbf{\@thesubject}}
 				
 				\bigskip
-				\textbf{Authors} : \theauthors
+				\textbf{Authors} : \@theauthors
 				
 				\smallskip
 				\textbf{Date submitted} : \DTMtoday
@@ -370,7 +382,7 @@ pdfcreator={pdflatex}]{hyperref}
 		\thispagestyle{empty}
 		\begin{minipage}{\linewidth}
 			\parbox{0.2\linewidth}{\includegraphics[width=0.5\linewidth]{ucd-crest.png}\hfill}%
-			\parbox{0.2\linewidth}{\theinstitution\hfill{\fontsize{38}{10}$/$}}%
+			\parbox{0.2\linewidth}{\@theinstitution\hfill{\fontsize{38}{10}$/$}}%
 			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright College of Engineering and Architecture}\hfill{\fontsize{40}{10} $/$}}%
 			\parbox{0.3\linewidth}{\parbox{0.8\linewidth}{\raggedright Electronic Engineering}\hfill{\fontsize{40}{10} $/$}}%
 		\end{minipage}
@@ -378,12 +390,12 @@ pdfcreator={pdflatex}]{hyperref}
 		\vspace{3cm}
 		\begingroup
 		\setstretch{4}\fontsize{28}{10}\selectfont\fontdimen2\font=0.8ex
-		\parbox{\textwidth}{\raggedright\textbf{\thetitle}}
+		\parbox{\textwidth}{\raggedright\textbf{\@thetitle}}
 		\endgroup
 		
 		\vspace{2cm}%
 		\hspace{0.1\textwidth}\fbox{\parbox{0.8\textwidth}{
-				\textbf{Name:} \theauthors
+				\textbf{Name:} \@theauthors
 				
 				\smallskip
 				\raggedright #1
@@ -393,7 +405,7 @@ pdfcreator={pdflatex}]{hyperref}
 		\vspace{\fill}%
 
 		\parbox{\linewidth}{{\large 
-				{\Large\textbf{\thesubject}}
+				{\Large\textbf{\@thesubject}}
 
 				\smallskip
 				\textbf{Date submitted} : \DTMtoday
