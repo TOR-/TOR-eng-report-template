@@ -78,7 +78,7 @@
 %\bibliographystyle{humannat}
 %\RequirePackage{wrapfig}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[font=small, labelfont=bf]{caption}
+\RequirePackage[labelfont=bf]{caption}
 \RequirePackage{helvet}
 \usepackage[acronym]{glossaries}
 
@@ -120,6 +120,7 @@
 	\usemintedstyle{tango}
 	\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
 	\setminted{
+		autogobble,
 		escapeinside=||,
 		fontfamily=courier,
 		fontseries=bf,
@@ -130,7 +131,6 @@
 		numbers=left,
 		numbersep=3pt,
 		numberblanklines=true,
-		samepage=true,
 		%bgcolor=lbcolor,
 		breaklines=true,
 		breaksymbol={\color{red}$\hookrightarrow$},
