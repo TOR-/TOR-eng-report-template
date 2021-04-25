@@ -84,7 +84,7 @@
 
 \RequirePackage{cuted} % provides strip environment for 1 col in 2 col doc
 
-\RequirePackage{siunitx}
+\RequirePackage[binary-units]{siunitx}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{mathtools}
@@ -200,6 +200,7 @@
 %\RequirePackage{algorithmicx}
 \RequirePackage[toc,page]{appendix}
 \RequirePackage{titlesec}
+%\RequirePackage{natbib}
 \RequirePackage[backref,hyperref,backend=biber,style=numeric,sorting=ynt]{biblatex}
 \RequirePackage[hidelinks,
 luatex,
